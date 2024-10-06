@@ -7,3 +7,7 @@
 ## About
 
 Usage of Windows clipboard (for example Win + Shift + S for snipping tool) to convert text from the screenshot to the symbolic text back to the clipboard overriding the screenshot.
+
+## Installation
+Go to <a href="https://github.com/malandrii/clipboard-image-to-text/releases">Releases</a>, choose the latest release and click the "clipboard-to-image.exe" or
+just click <a href="https://github.com/malandrii/clipboard-image-to-text/releases/download/1.0/clipboard-to-image.exe">here</a>.
