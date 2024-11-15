@@ -60,7 +60,7 @@ class App:
         self.root = root
         self.root.title("Snipping Tool Image to Text")
 
-        self.cross_platform_tesseract = CrossPlatformTesseract(platform='windows')
+        self.cross_platform_tesseract = CrossPlatformTesseract(platform='macos')
         self.watcher = ClipboardWatcher(self.cross_platform_tesseract)
 
         self.toggle_button = tk.Button(self.root, text="Start Monitoring", command=self.toggle_monitoring)
