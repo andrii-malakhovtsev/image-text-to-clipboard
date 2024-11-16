@@ -1,20 +1,20 @@
+# main.py
 import tkinter as tk
 import time
 import threading
 import pyperclip
 from PIL import ImageGrab
-import pytesseract
-
-# Configure the Tesseract executable path
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+from cross_platform_tesseract import CrossPlatformTesseract
 
 class ClipboardWatcher:
-    def __init__(self):
+    def __init__(self, cross_platform_tesseract):
         self.running = False
         self.previous_text = ""
+        self.cross_platform_tesseract = cross_platform_tesseract
 
     def start(self):
         self.running = True
+        self.cross_platform_tesseract.setup_tesseract()  # Ensure Tesseract is set up before use
         self.check_clipboard()
 
     def stop(self):
@@ -30,7 +30,7 @@ class ClipboardWatcher:
             else:
                 self.extract_text_from_image()
 
-            time.sleep(1)  # Check every second, optimize to update from Win Snipping Tool only in the future
+            time.sleep(1)  # Interval is a subject to change (1 second)
 
     def extract_text_from_image(self):
         try:
@@ -41,7 +41,7 @@ class ClipboardWatcher:
             if image.mode != 'RGB':
                 image = image.convert('RGB')
             
-            extracted_text = pytesseract.image_to_string(image)
+            extracted_text = self.cross_platform_tesseract.extract_text(image)
             print("Extracted text:", extracted_text)
             
             if extracted_text.strip():
@@ -59,10 +59,11 @@ class App:
     def __init__(self, root):
         self.root = root
         self.root.title("Snipping Tool Image to Text")
-        self.watcher = ClipboardWatcher()
 
-        self.toggle_button = tk.Button(self.root, text="Start Monitoring"
-                                       , command=self.toggle_monitoring)
+        self.cross_platform_tesseract = CrossPlatformTesseract(platform='macos')
+        self.watcher = ClipboardWatcher(self.cross_platform_tesseract)
+
+        self.toggle_button = tk.Button(self.root, text="Start Monitoring", command=self.toggle_monitoring)
         self.toggle_button.pack(pady=30)
 
         self.status_label = tk.Label(self.root, text="Status: Stopped")
@@ -76,7 +77,7 @@ class App:
             self.status_label.config(text="Status: Running")
         else:
             self.watcher.stop()
-            self.watcher_thread.join()  # Wait for the thread to finish
+            self.watcher_thread.join()
             self.toggle_button.config(text="Start Monitoring")
             self.status_label.config(text="Status: Stopped")
 
