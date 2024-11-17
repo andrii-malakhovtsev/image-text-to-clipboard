@@ -30,7 +30,7 @@ class ClipboardWatcher:
             else:
                 self.extract_text_from_image()
 
-            time.sleep(1)  # Interval is a subject to change (1 second)
+            time.sleep(0)  # Interval is a subject to change (1 second)
 
     def extract_text_from_image(self):
         try:
