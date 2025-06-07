@@ -84,4 +84,4 @@ Tesseract PATHs for this applications are set to default and are NOT detected by
 
 ## Installation
 
-Go to <a href="https://github.com/malandrii/clipboard-image-to-text/releases">Releases</a>, choose the latest release and choose the corresponding file for your OS.
+Go to <a href="https://github.com/andrii-malakhovtsev/clipboard-image-to-text/releases">Releases</a>, choose the latest release and choose the corresponding file for your OS.
