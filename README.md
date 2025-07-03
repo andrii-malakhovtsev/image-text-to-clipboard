@@ -1,4 +1,4 @@
-# Clipboard image to text
+# Image Text To Clipboard
 
 ## Dependencies
 
